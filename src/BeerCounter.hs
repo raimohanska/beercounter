@@ -31,13 +31,4 @@ buyRound = method POST $ catchError "Internal Error" $ do
 karma = method GET $ catchError "Internal Error" $ do
     me <- requiredParam "me"
     other <- requiredParam "other"
-    rounds <- liftIO $ mongoFindAll beerDB roundCollection :: Snap [Round]
-    writeLBS $ UTF8.fromString $ show $ relativeKarma me other rounds
-
-
-relativeKarma :: String -> String -> [Round] -> Int
-relativeKarma me other []     = 0
-relativeKarma me other (e:es) = eventKarma e + relativeKarma me other es
-  where eventKarma (Round me others)     | elem other others = 1
-        eventKarma (Round other others) | elem me others = -1
-        eventKarma _ = 0
+    writeLBS $ UTF8.fromString $ "lol!"
